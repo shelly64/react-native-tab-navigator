@@ -5,7 +5,7 @@
   "main": "TabNavigator.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exponentjs/react-native-tab-navigator.git"
+    "url": "git+https://github.com/shelly64/react-native-tab-navigator.git"
   },
   "keywords": [
     "react-native",
@@ -17,9 +17,9 @@
   "author": "James Ide",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/exponentjs/react-native-tab-navigator/issues"
+    "url": "https://github.com/shelly64/react-native-tab-navigator/issues"
   },
-  "homepage": "https://github.com/exponentjs/react-native-tab-navigator#readme",
+  "homepage": "https://github.com/shelly64/react-native-tab-navigator#readme",
   "dependencies": {
     "immutable": "^3.7.5"
   }
