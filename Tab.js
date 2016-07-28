@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TouchableNativeFeedback,
+  Platform,
 } from 'react-native';
 
 import Layout from './Layout';
@@ -21,6 +23,16 @@ export default class Tab extends React.Component {
     hidesTabTouch: PropTypes.bool,
     allowFontScaling: PropTypes.bool,
     style: View.propTypes.style,
+
+    //for android touch feedback
+    rippleColor: PropTypes.string,
+    isBorderless: PropTypes.bool,
+    delayPressIn: PropTypes.number,
+
+    //for andriod icon changing animately
+    selected: PropTypes.bool,
+    selectedPrev: PropTypes.bool,
+
   };
 
   constructor(props, context) {
@@ -57,18 +69,42 @@ export default class Tab extends React.Component {
       title ? null : styles.untitledContainer,
       this.props.style,
     ];
+
+    if(Platform.OS === 'ios' || Platform.Version < 21){
+      return (
+        <TouchableOpacity
+          testID={this.props.testID}
+          activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
+          onPress={this._handlePress}
+          style={tabStyle}>
+          <View>
+            {icon}
+            {badge}
+          </View>
+          {title}
+        </TouchableOpacity>
+      )
+    }
+
+    //for android 5+, touch feedback & icon animation
     return (
-      <TouchableOpacity
-        testID={this.props.testID}
-        activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
-        onPress={this._handlePress}
-        style={tabStyle}>
-        <View>
-          {icon}
-          {badge}
-        </View>
-        {title}
-      </TouchableOpacity>
+
+      // <TouchableNativeFeedback delayPressIn={this.props.delayPressIn}
+      // onPress={this._handlePress}
+      // background={TouchableNativeFeedback.Ripple(this.props.rippleColor, this.props.isBorderless)}>
+
+        <TouchableOpacity
+          testID={this.props.testID}
+          activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
+          onPress={this._handlePress}
+          style={tabStyle}>
+          <View>
+            {icon}
+            {badge}
+          </View>
+          {title}
+        </TouchableOpacity>
+      //  </TouchableNativeFeedback>
     );
   }
 
@@ -77,6 +113,12 @@ export default class Tab extends React.Component {
       this.props.onPress(event);
     }
   }
+}
+
+Tab.defaultProps = {
+    rippleColor: 'grey',
+    isBorderless: true,
+    delayPressIn: 0,
 }
 
 let styles = StyleSheet.create({

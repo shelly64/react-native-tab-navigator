@@ -7,6 +7,7 @@ import React, {
 import {
   StyleSheet,
   View,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 import Badge from './Badge';
@@ -79,18 +80,23 @@ export default class TabNavigator extends React.Component {
     });
 
     return (
-      <View {...props} style={[styles.container, style]}>
-        {scenes}
-        <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle}>
-          {React.Children.map(children, this._renderTab)}
-        </TabBar>
-      </View>
+
+          <View {...props} style={[styles.container, style]}>
+            {scenes}
+            <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle}>
+              {React.Children.map(children, this._renderTab)}
+            </TabBar>
+          </View>
+
+
     );
   }
 
   _renderTab(item) {
     let icon;
+    let title;
     if (item.props.selected) {
+      title = item.props.title;
       if (item.props.renderSelectedIcon) {
         icon = item.props.renderSelectedIcon();
       } else if (item.props.renderIcon) {
@@ -101,6 +107,7 @@ export default class TabNavigator extends React.Component {
       }
     } else if (item.props.renderIcon) {
       icon = item.props.renderIcon();
+      title = item.props.unSelectedTitle;
     }
 
     let badge;
@@ -113,7 +120,7 @@ export default class TabNavigator extends React.Component {
     return (
       <Tab
         testID={item.props.testID}
-        title={item.props.title}
+        title={title}
         allowFontScaling={item.props.allowFontScaling}
         titleStyle={[
           item.props.titleStyle,
@@ -125,7 +132,14 @@ export default class TabNavigator extends React.Component {
         badge={badge}
         onPress={item.props.onPress}
         hidesTabTouch={this.props.hidesTabTouch}
-        style={item.props.tabStyle}>
+        style={item.props.tabStyle}
+        // for android touch feedback
+        rippleColor={item.props.rippleColor}
+        isBorderless={item.props.isBorderless}
+        delayPressIn={item.props.delayPressIn}
+        //for android icon changing
+        selected={item.props.selectedTab}
+        selectedPrev={item.props.selectedTabPrev}>
         {icon}
       </Tab>
     );
@@ -136,6 +150,7 @@ class SceneContainer extends React.Component {
   static propTypes = {
     ...View.propTypes,
     selected: PropTypes.bool,
+
   };
 
   render() {
