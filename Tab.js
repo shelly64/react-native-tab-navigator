@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TouchableNativeFeedback,
+  Platform,
 } from 'react-native';
 
 import Layout from './Layout';
@@ -57,18 +59,41 @@ export default class Tab extends React.Component {
       title ? null : styles.untitledContainer,
       this.props.style,
     ];
+
+    if(Platform.OS === 'ios' || Platform.Version < 21){
+      return (
+        <TouchableOpacity
+          testID={this.props.testID}
+          activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
+          onPress={this._handlePress}
+          style={tabStyle}>
+          <View>
+            {icon}
+            {badge}
+          </View>
+          {title}
+        </TouchableOpacity>
+      )
+    }
+
     return (
-      <TouchableOpacity
-        testID={this.props.testID}
-        activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
-        onPress={this._handlePress}
-        style={tabStyle}>
-        <View>
-          {icon}
-          {badge}
-        </View>
-        {title}
-      </TouchableOpacity>
+
+      <TouchableNativeFeedback delayPressIn={0}
+      onPress={this._handlePress}
+      background={TouchableNativeFeedback.Ripple(this.props.rippleColor, this.props.isBorderless)}>
+
+        <TouchableOpacity
+          testID={this.props.testID}
+          activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
+          onPress={this._handlePress}
+          style={tabStyle}>
+          <View>
+            {icon}
+            {badge}
+          </View>
+          {title}
+        </TouchableOpacity>
+       </TouchableNativeFeedback>
     );
   }
 

@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
   View,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 import Layout from './Layout';
@@ -18,10 +19,16 @@ export default class TabBar extends React.Component {
 
   render() {
     return (
-      <Animated.View {...this.props} style={[styles.container, this.props.style]}>
-        {this.props.children}
-        <View style={[styles.shadow, this.props.shadowStyle]} />
-      </Animated.View>
+      // <TouchableNativeFeedback delayPressIn={0} background={TouchableNativeFeedback.Ripple('grey')}>
+      //   <View {...this.props} style={[styles.container, this.props.style]}>
+          <Animated.View {...this.props} style={[styles.container, this.props.style]}>
+            {this.props.children}
+            <View style={[styles.shadow, this.props.shadowStyle]} />
+          </Animated.View>
+    //      </View>
+    //  </TouchableNativeFeedback>
+
+
     );
   }
 }

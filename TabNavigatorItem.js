@@ -15,6 +15,7 @@ export default class TabNavigatorItem extends React.Component {
     badgeText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     renderBadge: PropTypes.func,
     title: PropTypes.string,
+    selectedTitle: PropTypes.string,
     titleStyle: Text.propTypes.style,
     selectedTitleStyle: Text.propTypes.style,
     tabStyle: View.propTypes.style,
