@@ -89,22 +89,17 @@ export default class Tab extends React.Component {
     //for android 5+, touch feedback & icon animation
     return (
 
-      // <TouchableNativeFeedback delayPressIn={this.props.delayPressIn}
-      // onPress={this._handlePress}
-      // background={TouchableNativeFeedback.Ripple(this.props.rippleColor, this.props.isBorderless)}>
-
-        <TouchableOpacity
-          testID={this.props.testID}
-          activeOpacity={this.props.hidesTabTouch ? 1.0 : 0.8}
-          onPress={this._handlePress}
-          style={tabStyle}>
+      <TouchableNativeFeedback delayPressIn={this.props.delayPressIn}
+      onPress={this._handlePress}
+      background={TouchableNativeFeedback.Ripple(this.props.rippleColor, this.props.isBorderless)}>
+        <View  style={tabStyle}>
           <View>
             {icon}
             {badge}
           </View>
           {title}
-        </TouchableOpacity>
-      //  </TouchableNativeFeedback>
+        </View>
+     </TouchableNativeFeedback>
     );
   }
 
