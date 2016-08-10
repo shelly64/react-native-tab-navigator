@@ -8,6 +8,7 @@ import {
   StyleSheet,
   View,
   TouchableNativeFeedback,
+  Animated,
 } from 'react-native';
 
 import Badge from './Badge';
@@ -156,7 +157,7 @@ class SceneContainer extends React.Component {
   render() {
     let { selected, ...props } = this.props;
     return (
-      <View
+      <Animated.View
         {...props}
         pointerEvents={selected ? 'auto' : 'none'}
         removeClippedSubviews={!selected}
@@ -168,7 +169,7 @@ class SceneContainer extends React.Component {
         <StaticContainer shouldUpdate={selected}>
           {this.props.children}
         </StaticContainer>
-      </View>
+      </Animated.View>
     );
   }
 }
