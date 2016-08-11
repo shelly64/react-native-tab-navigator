@@ -16,7 +16,6 @@ import StaticContainer from './StaticContainer';
 import Tab from './Tab';
 import TabBar from './TabBar';
 import TabNavigatorItem from './TabNavigatorItem';
-import MultiScenesContainer from './MultiScenesContainer';
 import SceneContainer from './SceneContainer';
 
 export default class TabNavigator extends React.Component {
